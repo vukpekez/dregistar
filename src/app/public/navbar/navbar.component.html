@@ -1,0 +1,55 @@
+<nav id="navbar" class="navbar fixed-top navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" routerLink=''>
+      <strong>DRegistar</strong>
+    </a>
+
+    <!-- Collapse -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Left -->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item home active">
+          <a class="nav-link" routerLink=''>Početna</a>
+        </li>
+        <li class="nav-item searchDoctors search">
+          <a class="nav-link" routerLink='pretraga/lekari'>Lekari</a>
+        </li>
+        <li class="nav-item searchHospitals">
+          <a class="nav-link" routerLink='pretraga/zdravstvene-ustanove'>Zdravstvene ustanove</a>
+        </li>
+      </ul>
+
+      <!-- Right -->
+      <ul class="navbar-nav nav-flex-icons">
+
+        <!-- Logged out -->
+        <ng-container *ngIf="!userData">
+          <li class="nav-item login" style="margin-right: 5px;">
+            <a routerLink="uloguj-se" class="nav-link border border-light rounded">Uloguj se</a>
+          </li>
+          <li class="nav-item signup" style="margin-left: 5px;">
+            <a routerLink="registruj-se" class="nav-link border border-light rounded">Registruj se</a>
+          </li>
+        </ng-container>
+
+        <!-- Logged in -->
+        <li *ngIf="userData" class="nav-item dropdown">
+          <a style="cursor: pointer;" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{userData?.fullname}}</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink-4">
+            <button mat-button routerLink="{{userData.isDoctor ? 'lekar' : 'korisnik'}}/pregledi">Pregledi</button>
+            <button mat-button routerLink="{{userData.isDoctor ? 'lekar' : 'korisnik'}}/recenzije">Recenzije</button>
+            <button mat-button routerLink="{{userData.isDoctor ? 'lekar' : 'korisnik'}}/nalog">Nalog</button>
+            <div class="dropdown-divider"></div>
+            <button mat-button (click)="logout()">Odjavi se</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

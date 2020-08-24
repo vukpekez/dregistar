@@ -1,0 +1,20 @@
+.navbar {
+  background-color:#1C2331;
+  padding: 20px 0;
+
+  .navbar-brand {
+    font-size: 25px;
+  }
+}
+
+.mat-button {
+  color: #1C2331;;
+  width: 100%;
+  outline: none;
+  border-radius: 0;
+}
+
+.mat-button:hover {
+  color: #fafafa;
+  background-color: #1C2331;
+}

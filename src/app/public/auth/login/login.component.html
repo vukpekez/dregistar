@@ -1,0 +1,24 @@
+<div class="login">
+  <h1>Uloguj se</h1>
+  <mat-button-toggle-group (change)="changed()">
+    <mat-button-toggle [checked]='true'>Korisnik</mat-button-toggle>
+    <mat-button-toggle>Doktor</mat-button-toggle>
+  </mat-button-toggle-group>
+  <form [formGroup]='form'>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>E-mail</mat-label>
+      <input matInput name="email" type="email" formControlName='email' placeholder="email@example.com">
+      <mat-error *ngIf="form.get('email').hasError('required')">Unesite e-mail adresu.</mat-error>
+      <mat-error *ngIf="form.get('email').hasError('email')">Unesite validnu e-mail adresu.</mat-error>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Lozinka</mat-label>
+      <input matInput name="password" type="password" formControlName='password' placeholder="Password">
+      <mat-error *ngIf="form.get('password').hasError('required')">Unesite lozinku.</mat-error>
+      <mat-error *ngIf="form.get('password').hasError('minlength')">Lozinka je prekratka.</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-stroked-button type="submit" (click)="login()">Uloguj se</button>
+  </form>
+</div>

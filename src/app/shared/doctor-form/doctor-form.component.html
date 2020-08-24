@@ -1,0 +1,98 @@
+<form [formGroup]='form'>
+  <div class="row">
+    <div class="col">
+      <mat-form-field style="width: calc(50% - 5px); margin-right: 5px;" appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput name="name">
+        <mat-error *ngIf="form.get('name').hasError('required')">Unesite svoje ime.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: calc(50% - 5px);" appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput name="surname" formControlName='surname'>
+        <mat-error *ngIf="form.get('surname').hasError('required')">Unesite svoje prezime.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" formControlName='email'>
+        <mat-error *ngIf="form.get('email').hasError('required')">Unesite e-mail adresu.</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('email')">Unesite validnu e-mail adresu.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Lozinka</mat-label>
+        <input matInput name="password" type="password" formControlName='password'>
+        <mat-error *ngIf="form.get('password').hasError('required')">Unesite lozinku.</mat-error>
+        <mat-error *ngIf="form.get('password').hasError('minlength')">Lozinka je prekratka.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Biografija</mat-label>
+        <input matInput name="password" type="password" formControlName='password'>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <div class="row">
+        <mat-form-field appearance="outline" style="width: calc(75% - 5px); margin-right: 5px;">
+          <mat-label>Primarna oblast rada / specijalizacija</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let s of specs" [value]='s'>
+              {{s}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('specialty').hasError('required')">Odaberite primarnu oblast rada ili
+            specijalizaciju.
+          </mat-error>
+        </mat-form-field>
+        <button class="button" (click)="openDialog('spec')" mat-stroked-button style="width: calc(25% - 5px);">Dodaj
+          novu</button>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline" style="width: calc(75% - 5px); margin-right: 5px;">
+          <mat-label>Radna ustanova</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let h of hospitals" [value]='h.name'>
+              {{h.name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('workPlace').hasError('required')">Odaberite ustanovu u kojoj radite.
+          </mat-error>
+        </mat-form-field>
+        <button class="button" (click)="openDialog('hospital')" mat-stroked-button style="width: calc(25% - 5px);">Dodaj
+          novu</button>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline" style="width:calc(20% - 5px); margin-right: 5px;">
+          <mat-label>Početak</mat-label>
+          <input type="time" matInput name="workTime" type="text" formControlName='workPlace' placeholder="Radno vreme">
+          <mat-error *ngIf="form.get('workPlace').hasError('required')">Unesite radno vreme.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width:calc(20% - 5px);">
+          <mat-label>Kraj</mat-label>
+          <input matInput name="workTime" type="text" formControlName='workPlace' placeholder="Radno vreme">
+          <mat-error *ngIf="form.get('workPlace').hasError('required')">Unesite radno vreme.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: calc(30% - 5px); margin-left: 5px">
+          <mat-label>Pregled MIN</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let t of time" [value]='t'>
+              {{t}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('workPlace').hasError('required')">Unesite trajanje pregleda.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: calc(30% - 5px);margin-left: 5px">
+          <mat-label>Neradni dani</mat-label>
+          <mat-select multiple>
+            <mat-option *ngFor="let d of days" [value]='d'>
+              {{d}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row">
+        <mat-form-field appearance="outline">
+          <mat-label>Edukacija</mat-label>
+          <input matInput name="password" type="password" formControlName='password'>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>

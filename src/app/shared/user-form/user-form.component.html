@@ -1,0 +1,42 @@
+<form [formGroup]='form'>
+  <div class="row">
+    <div class="col">
+      <mat-form-field style="width: calc(50% - 5px); margin-right: 5px;" appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput name="name">
+        <mat-error *ngIf="form.get('name').hasError('required')">Unesite svoje ime.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: calc(50% - 5px);" appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput name="surname" formControlName='surname'>
+        <mat-error *ngIf="form.get('surname').hasError('required')">Unesite svoje prezime.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput name="email" formControlName='email'>
+        <mat-error *ngIf="form.get('email').hasError('required')">Unesite e-mail adresu.</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('email')">Unesite validnu e-mail adresu.</mat-error>
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Lozinka</mat-label>
+        <input matInput name="password" type="password" formControlName='password'>
+        <mat-error *ngIf="form.get('password').hasError('required')">Unesite lozinku.</mat-error>
+        <mat-error *ngIf="form.get('password').hasError('minlength')">Lozinka je prekratka.</mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Telefon</mat-label>
+        <input matInput name="phone">
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Adresa</mat-label>
+        <input matInput name="address">
+      </mat-form-field>
+      <mat-form-field style="width: 100%;" appearance="outline">
+        <mat-label>Datum rođenja</mat-label>
+        <input matInput name="birthday">
+      </mat-form-field>
+    </div>
+  </div>
+</form>

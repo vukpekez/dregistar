@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center">
+  <form>
+    <mat-form-field appearance="outline">
+      <mat-label>{{searchDoctors ? 'Lekar' : 'Ustanova'}}</mat-label>
+      <input matInput id="name" name="name" [(ngModel)]="name" [matAutocomplete]="fullnames">
+      <mat-autocomplete #fullnames="matAutocomplete">
+        <mat-option *ngFor="let name of names.filtered" [value]="name">
+          {{name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field *ngIf="searchDoctors" appearance="outline" style="margin-left: 10px;">
+      <mat-label>Specijalizacija</mat-label>
+      <input matInput id="spec" name="spec" [(ngModel)]="specialty" [matAutocomplete]="specs">
+      <mat-autocomplete #specs="matAutocomplete">
+        <mat-option *ngFor="let spec of specialties.filtered" [value]="spec">
+          {{spec}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field appearance="outline" style="margin: 0 10px;">
+      <mat-label>Adresa</mat-label>
+      <input matInput id="place" name="place" [(ngModel)]="locatinon" [matAutocomplete]="loc">
+      <mat-autocomplete #loc="matAutocomplete">
+        <mat-option *ngFor="let loc of locations.filtered" [value]="loc">
+          {{loc}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <button id='button' mat-stroked-button type="submit" (click)="search()">Pretraga
+  </button>
+</div>

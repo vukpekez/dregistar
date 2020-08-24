@@ -1,0 +1,35 @@
+<ng-container *ngFor="let doc of doctors; index as i, last as isLast">
+  <div class="doctor" style="cursor: pointer; position: relative; outline: none;" routerLink="../../lekari/{{doc._id}}">
+    <div id="{{i}}" class="row" style="padding: 20px;">
+      <div class="col-lg-2 center-content">
+        <img src="https://www.kidsmathgamesonline.com/images/pictures/shapes/square.jpg" class="img-fluid">
+      </div>
+      <div class="col-lg-4" style="text-align: justify; padding: 10px 0;">
+        <div>
+          <h4 style="display: inline;"><strong>{{doc.fullname}}</strong></h4>
+          <span class="fas fa-star" style="color: #ffd700;font-size: 20px;">{{doc.reviews.rating}}</span><span
+            style="font-size: 15px;"> ({{doc.reviews.reviews}})</span>
+        </div>
+        <h5 style="margin: 0;">{{doc.specialty}}</h5>
+      </div>
+      <div class="col-lg-3" style="text-align: justify; padding: 10px 0;">
+        <p style="margin: 0;">Zdravstvena ustanova:</p>
+        <strong>{{doc.workPlace.name}}</strong>
+        <p>{{doc.workPlace.address}}</p>
+        <p *ngIf="doc.distance; else calc"><strong>Udaljeno {{doc.distance}}km
+            od tebe.</strong></p>
+        <ng-template #calc>
+          <div>
+            <mat-spinner style="display: inline;"></mat-spinner>
+            <h6 style="margin-left: 30px;">Izračunavanje
+              udaljenosti...</h6>
+          </div>
+        </ng-template>
+      </div>
+      <div class="col-lg-3">
+        <app-map [id]='i'></app-map>
+      </div>
+    </div>
+    <mat-divider *ngIf="!isLast"></mat-divider>
+  </div>
+</ng-container>

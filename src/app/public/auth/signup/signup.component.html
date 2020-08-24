@@ -1,0 +1,10 @@
+<div class="signup">
+  <h1>Registruj se</h1>
+  <mat-button-toggle-group #toggle>
+    <mat-button-toggle [checked]='!isDoctor' routerLink='korisnik'>Korisnik</mat-button-toggle>
+    <mat-button-toggle [checked]='isDoctor' routerLink='lekar'>Doktor</mat-button-toggle>
+  </mat-button-toggle-group>
+  <router-outlet></router-outlet>
+  <br>
+  <button mat-stroked-button type="submit" (click)="signUp()">Registruj se</button>
+</div>

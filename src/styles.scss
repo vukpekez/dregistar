@@ -1,2 +1,11 @@
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
+
+.mat-stroked-button {
+  outline: none;
+  width: 150px;
+}
+
+.center-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
