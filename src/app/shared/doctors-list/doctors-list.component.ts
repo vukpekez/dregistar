@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-doctors-list',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DoctorsListComponent implements OnInit {
 
+  @Input() showMap: boolean
   doctors = [
     {
       _id: 'dasdsadas',

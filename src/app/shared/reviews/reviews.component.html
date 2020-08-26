@@ -1,0 +1,52 @@
+<div style="margin-top: 20px;">
+  <div class="row">
+    <div class="col">
+      <mat-button-toggle-group (change)="sortReviews($event)" style="margin-bottom: 10px;">
+        <mat-button-toggle [checked]='true' [value]="'new'">Najnoviji</mat-button-toggle>
+        <mat-button-toggle [value]="'best'">Najbolje ocene</mat-button-toggle>
+        <mat-button-toggle [value]="'worst'">Najlošije ocene</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="col" style="text-align: end;"><button mat-raised-button
+        style="outline: none;background-color: #1c2431; color: #fafafa;">Dodaj
+        recenziju</button></div>
+    <div class="col" style="text-align: end;">
+      <h4 style="display: inline;"><strong>Ukupna ocena: </strong></h4>
+      <span class="fa fa-star" style="color: #ffd700;font-size: 20px;display: inline;">{{reviews.rating}}</span>
+      <span style="font-size: 15px;display: inline;"> ({{reviews.count}})</span>
+    </div>
+  </div>
+
+  <div *ngFor="let r of reviews.reviews; index as i"
+    style="margin-top: 12px;height: fit-content;padding: 20px;border: rgba(0,0,0,.1); border-style: solid;border-width: 1px;border-radius: 5px;">
+    <div class="row">
+      <div class="col">
+        <ng-container *ngIf="reviews.asUser;">
+          <h6><strong>Lekar:</strong> {{r.doctor.fullname}} - {{r.doctor.specialty}}</h6>
+        </ng-container>
+        <ng-container *ngIf="!reviews.asUser">
+          <h6>{{r.user.name + ' ' + r.user.surname}}</h6>
+        </ng-container>
+      </div>
+      <div class="col" style="text-align:end;">
+        <h6>{{(r.date) | date: 'medium'}}</h6>
+      </div>
+    </div>
+    <p>{{r.content}}</p>
+    <div class="row">
+      <div class="col">
+        <button class="mat-button" *ngIf="reviews.asUser" mat-button routerLink="../../lekari/{{r.doctor._id}}"
+          style="background-color: #1c2431;margin-right: 10px;">Pogledaj profil</button>
+        <ng-container>
+          <button class="mat-button" mat-button style="background-color: #1c2431;">Izmeni</button>
+          <button class="mat-button" mat-button style="margin-left: 10px; background-color: red;">Obrisi</button>
+        </ng-container>
+      </div>
+      <div class="col" style="text-align:end;">
+        <h6 style="display: inline;">Ocena: <span *ngFor="let star of [].constructor(r.rating)" class="fa fa-star"
+            style="color: gold;"></span>
+        </h6>
+      </div>
+    </div>
+  </div>
+</div>

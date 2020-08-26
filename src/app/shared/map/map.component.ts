@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, OnDestroy } from '@angular/core';
+import { MatOptgroup } from '@angular/material/core';
 
 declare const L: any
 
@@ -7,11 +8,13 @@ declare const L: any
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() id: string
-
   constructor() { }
+  ngOnDestroy(): void {
+
+  }
 
   ngAfterViewInit(): void {
     var map = L.map('map' + this.id, {
@@ -20,6 +23,8 @@ export class MapComponent implements OnInit, AfterViewInit {
     })
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
   }
-  ngOnInit() { }
+
+  ngOnInit() {
+  }
 
 }

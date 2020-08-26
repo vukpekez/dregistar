@@ -1,0 +1,20 @@
+<div class="header row" style="margin-bottom: 15px; text-align: center;">
+  <div class="col">
+    <h1>{{user.name}} {{user.surname}}</h1>
+    <h5 *ngIf="user.phone">Telefon: {{user.phone}}</h5>
+  </div>
+  <div class="col">
+    <div>
+      <h3>{{user.email}}</h3>
+      <button mat-raised-button>Izmeni lozinku</button>
+    </div>
+  </div>
+</div>
+<nav id="tabs" class="mat-elevation-z15 animated" style="border-radius: 10px;background-color: #1c2431;color: white;"
+  mat-tab-nav-bar mat-stretch-tabs>
+  <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" [active]="activeLink == link">{{link}}</a>
+</nav>
+
+<div style="padding:20px">
+  <router-outlet></router-outlet>
+</div>

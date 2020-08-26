@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HospitalsComponent implements OnInit {
 
+  hospitals: any
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  sort(value: string) {
+    this.hospitals.sort((a, b) => {
+      if (value === 'best')
+        return +b.rating[0] - +a.rating[0]
+      else
+        return +a.distance - +b.distance
+    })
+  }
 }

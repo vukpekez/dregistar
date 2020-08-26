@@ -29,6 +29,20 @@ import { DoctorsComponent } from './public/doctors/doctors.component';
 import { HospitalsComponent } from './public/hospitals/hospitals.component';
 import { SearchFormComponent } from './shared/search-form/search-form.component';
 import { MapComponent } from './shared/map/map.component';
+import { DoctorComponent } from './public/doctor/doctor.component';
+import { HospitalComponent } from './public/hospital/hospital.component';
+import { ReviewsComponent } from './shared/reviews/reviews.component';
+import { DoctorAccountComponent } from './private/doctor-account/doctor-account.component';
+import { UserAccountComponent } from './private/user-account/user-account.component';
+
+import { FullCalendarModule } from '@fullcalendar/angular';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import { ExaminationsComponent } from './shared/examinations/examinations.component';
+FullCalendarModule.registerPlugins([ // register FullCalendar plugins
+  dayGridPlugin,
+  interactionPlugin
+]);
 
 @NgModule({
   declarations: [
@@ -43,14 +57,20 @@ import { MapComponent } from './shared/map/map.component';
     DoctorsComponent,
     HospitalsComponent,
     SearchFormComponent,
-    MapComponent
+    MapComponent,
+    DoctorComponent,
+    HospitalComponent,
+    ReviewsComponent,
+    DoctorAccountComponent,
+    UserAccountComponent,
+    ExaminationsComponent
   ],
   imports: [
     BrowserModule, BrowserAnimationsModule,
     AppRoutingModule,
     MatInputModule, FormsModule, ReactiveFormsModule, MatSelectModule, MatButtonModule, MatDividerModule, MatTabsModule,
     MatButtonToggleModule, MatDialogModule, HttpClientModule, MatAutocompleteModule, MatProgressSpinnerModule, MatCheckboxModule,
-    MatDatepickerModule
+    MatDatepickerModule, FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

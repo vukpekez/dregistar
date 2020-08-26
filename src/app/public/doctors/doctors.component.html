@@ -1,2 +1,8 @@
 <app-search-form></app-search-form>
+<div style="text-align: center;">
+  <mat-button-toggle-group (change)="sort($event.value)">
+    <mat-button-toggle [checked]='true' [value]="'best'">Najbolji</mat-button-toggle>
+    <mat-button-toggle [value]="'close'">Najbliži</mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
 <app-doctors-list></app-doctors-list>

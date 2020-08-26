@@ -1,0 +1,77 @@
+<div id="header" class="row">
+  <div class="col-3">
+    <img src="https://www.kidsmathgamesonline.com/images/pictures/shapes/square.jpg" style="width: 60%;">
+  </div>
+  <div class="col title">
+    <h1>{{doctor.fullname}}</h1>
+    <h5>{{doctor.specialty[0]}}</h5>
+    <div *ngIf="doctor.rating">
+      <span class="fa fa-star" style="color: #ffd700;font-size: 20px;display: inline;">{{doctor.rating.rating}}</span>
+      <span style="font-size: 15px;display: inline;"> ({{doctor.rating.count}})</span>
+    </div>
+  </div>
+  <div class="col title">
+    <h5 style="outline: none;cursor: pointer;" routerLink='../../bolnice/{{doctor.workPlace._id}}'>
+      <strong>{{doctor.workPlace.name}}</strong></h5>
+    <h6>{{doctor.workPlace.address}}</h6>
+    <h6><strong>{{doctor.workPlace.phone}}</strong></h6>
+    <button style="width: 50%" *ngIf="!loggedUser || loggedUser.isDoctor === false" mat-raised-button
+      (click)="openDialog()">Zakaži
+      pregled</button>
+  </div>
+</div>
+<nav id="tabs" class="mat-elevation-z15 animated" mat-tab-nav-bar mat-stretch-tabs>
+  <a mat-tab-link *ngFor="let link of links" (click)="activeLink = link" [active]="activeLink == link"
+    (click)="scroll(link)">{{link}}</a>
+</nav>
+<div id='loc'>
+  <div class="row">
+    <div class="col loc">
+      <h3>Lokacija</h3>
+      <br>
+      <p style="outline: none;cursor: pointer;" routerLink='../../bolnice/{{doctor.workPlace._id}}'>
+        <strong>Ustanova:</strong> {{doctor.workPlace.name}}</p>
+      <p><strong>Adresa:</strong> {{doctor.workPlace.address}}</p>
+      <p><strong>Telefon:</strong> {{doctor.workPlace.phone}}</p>
+      <p><strong>Udaljeno od tebe: </strong>{{doctor.distance}}km</p>
+    </div>
+    <div class="col">
+      <div class="mat-elevation-z4" style="border-radius: 10px;min-width:300px;height:100%;">
+        <app-map [id]='doctor._id'></app-map>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider id="doc" style="margin: 50px 0 35px 0;"></mat-divider>
+
+  <h3>O lekaru</h3>
+  <h5>Oblast rada / specijalizacija</h5>
+  <ul>
+    <li *ngFor="let s of doctor.specialty">
+      <p *ngIf="s[0] === '*'"><strong>{{s.substr(1)}}</strong></p>
+      <p *ngIf="s[0] !== '*'">{{s}}</p>
+    </li>
+  </ul>
+  <h5>Edukacija</h5>
+  <ul style="list-style: none;padding: 0;">
+    <li *ngFor="let e of doctor.education">
+      <p *ngIf="e.toLocaleLowerCase().includes('fakultet')"><strong>Fakultet</strong><br>
+        {{e}}
+      </p>
+      <p *ngIf="e.toLocaleLowerCase().includes('škola')"><strong>Medicinska škola</strong><br>
+        {{e}}
+      </p>
+    </li>
+  </ul>
+  <h5>Kratka biografija</h5>
+  <p>Lorem Ipsum je jednostavno probni tekst koji se koristi u tiskarskoj i slovoslagarskoj industriji. Lorem Ipsum
+    postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo tiskarsku galiju slova i
+    posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet stoljeća, već se i vinuo u
+    svijet elektronskog slovoslagarstva, ostajući u suštini nepromijenjen.</p>
+
+
+  <mat-divider id="rec" style="margin: 30px 0;"></mat-divider>
+
+  <h3>Recenzije</h3>
+  <app-reviews></app-reviews>
+</div>

@@ -9,39 +9,38 @@ import { Router, NavigationEnd } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'dregistar';
 
+  shadow = 'mat-elevation-z10'
+
   constructor(router: Router) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        const content = document.getElementById('back')
-        const scroll = document.getElementById('scroll-container')
+        const scroll = document.getElementById('scrollable-container')
+        const content = document.getElementById('content') ? document.getElementById('content') : document.getElementById('center-content')
 
         if (event.url == '/' || event.url == '/uloguj-se' || event.url.includes('/registruj-se')) {
-          event.url.includes('/registruj-se') ? scroll.classList.add('container') : scroll.classList.remove('container')
+          content.id = 'center-content'
           scroll.classList.add('center-content')
         } else {
-          scroll.classList.add('container')
+          content.id = 'content'
           scroll.classList.remove('center-content')
-        }
-
-        if (event.url == '/') {
-          content.style.backgroundImage = 'url("../assets/home-background.jpg")'
-        } else {
-          content.style.backgroundImage = 'initial'
         }
       }
     })
   }
 
   ngOnInit(): void {
+    if (document.defaultView.screen.width < 1000) {
+      this.shadow = ''
+    }
   }
 
   scroll(scroll: HTMLElement): void {
     if (scroll.scrollTop > 0) {
       scroll.style.top = '57px'
-      document.getElementById("navbar").style.padding = "0";
+      document.getElementById('navbar').style.padding = '5px 0'
     } else {
       scroll.style.top = '87px'
-      document.getElementById("navbar").style.padding = "20px 0";
+      document.getElementById('navbar').style.padding = '20px 0'
     }
   }
 }

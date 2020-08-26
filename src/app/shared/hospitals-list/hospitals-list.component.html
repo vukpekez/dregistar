@@ -1,6 +1,6 @@
-<ng-container *ngFor="let h of hospitals; index as i">
-  <div class="hoverable" routerLink='/bolnice/{{h._id}}'>
-    <div class="row" style="padding: 20px;">
+<ng-container *ngFor="let h of hospitals; index as i; last as isLast">
+  <div style="cursor: pointer;" routerLink='/zdravstvene-ustanove/{{h._id}}'>
+    <div class="row" style="padding: 20px; min-height: 200px;">
       <div class="col-md-4 info" style="text-align: justify;">
         <strong>
           <h4>{{h.name}}</h4>
@@ -19,8 +19,9 @@
         </ng-template>
       </div>
       <div class="col-md-4">
-        <app-map [id]='i'></app-map>
+        <app-map [id]='"hosp,"+i'></app-map>
       </div>
     </div>
+    <mat-divider *ngIf="!isLast"></mat-divider>
   </div>
 </ng-container>
