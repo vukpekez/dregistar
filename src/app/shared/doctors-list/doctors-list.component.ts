@@ -1,4 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { DoctorsService } from 'src/app/core/services/doctors.service';
+import { Observable } from 'rxjs';
+import { Doctor } from 'src/app/models/doctor';
 
 @Component({
   selector: 'app-doctors-list',
@@ -7,78 +10,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DoctorsListComponent implements OnInit {
 
-  @Input() showMap: boolean
-  doctors = [
-    {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    },
-    {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    },
-    {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    },
-    {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    }, {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    },
-    {
-      _id: 'dasdsadas',
-      fullname: 'Ime i prezime',
-      specialty: 'Hirurgija',
-      reviews: { reviews: 4, rating: 4.6 },
-      distance: 3.5,
-      workPlace: {
-        name: "Sveti Jovan",
-        address: 'Ive Lole Ribara, Zrenjanin'
-      }
-    }
-  ]
+  isObservable = false
+  @Input() doctors: Observable<Doctor[]> | Doctor[]
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private service: DoctorsService) {
   }
 
+  ngOnInit(): void {
+    if (!this.doctors) {
+      this.isObservable = true
+      this.doctors = this.service.getDoctorsListener() as Observable<Doctor[]>
+      this.service.getDoctors()
+    }
+  }
+
+  setDistance(distance: { i: number, value: number }) {
+    this.service.setDistance(distance)
+  }
 }

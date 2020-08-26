@@ -1,4 +1,4 @@
-<ng-container *ngFor="let h of hospitals; index as i; last as isLast">
+<ng-container *ngFor="let h of hospitals | async; index as i; last as isLast">
   <div style="cursor: pointer;" routerLink='/zdravstvene-ustanove/{{h._id}}'>
     <div class="row" style="padding: 20px; min-height: 200px;">
       <div class="col-md-4 info" style="text-align: justify;">
@@ -8,18 +8,13 @@
       </div>
       <div class="col-md-4 loc">
         <h6>{{h.address}}</h6>
-        <p *ngIf="h.distance; else calc" style="color: red;"><strong>Udaljeno {{h.distance}}km
-            od tebe.</strong></p>
-        <ng-template #calc>
-          <div>
-            <mat-spinner style="display: inline;"></mat-spinner>
-            <h6 style="margin-left: 30px; color: red;">Izračunavanje
-              udaljenosti...</h6>
-          </div>
-        </ng-template>
+        <p><strong>Udaljenost:
+            <span *ngIf="h.distance as distance">{{distance}}km</span>
+            <span *ngIf="!h.distance">Izračunavanje...</span>
+          </strong></p>
       </div>
       <div class="col-md-4">
-        <app-map [id]='"hosp,"+i'></app-map>
+        <app-map [id]='"hos"+i' [location]='h.location' (distance)='setDistance($event)'></app-map>
       </div>
     </div>
     <mat-divider *ngIf="!isLast"></mat-divider>

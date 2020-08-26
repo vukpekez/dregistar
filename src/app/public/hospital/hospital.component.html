@@ -1,28 +1,35 @@
-<div id="header" class="row">
-  <div class="col info">
-    <h1>{{hospital.name}}</h1>
-    <h5>{{hospital.address}}</h5>
-    <div *ngIf="hospital.rating">
+<ng-container *ngIf="(hospital | async) as hospital">
+  <div id="header" class="row">
+    <div class="col info">
+      <h1>{{hospital.name}}</h1>
+      <h5>{{hospital.address}}</h5>
       <p style="margin-bottom: 5px; font-size: 20px;">Ukupna ocena:
         <span class="fa fa-star" style="color: #ffd700;font-size: 25px;display: inline;">
-          {{hospital.rating.rating}}</span>
-        <span style="font-size: 15px;"> ({{hospital.rating.count}})</span>
+          {{hospital.overallRating}}</span>
       </p>
-      <p style="font-size: 20px;">Udaljenost: {{hospital.distance}}km</p>
+      <p style="font-size: 20px;"><strong>Udaljenost: </strong>
+        <span *ngIf="!hospital.distance">Izračunavanje...</span>
+        <span *ngIf="hospital.distance as distance">{{distance}}km</span></p>
+    </div>
+    <div class="col" style="min-height: 200px;">
+      <app-map [id]='hospital._id' [location]='hospital.location' (distance)='setDistance($event)'></app-map>
     </div>
   </div>
-  <div class="col" style="min-height: 200px;">
-    <app-map [id]='hospital._id'></app-map>
-  </div>
-</div>
 
-<div class="employees">
-  <div style="text-align: center;">
-    <h3>Zaposleni</h3>
-    <mat-form-field appearance='outline'>
-      <mat-label>Pretraga</mat-label>
-      <input matInput [(ngModel)]='filter'>
-    </mat-form-field>
+  <div class="employees">
+    <div style="text-align: center;">
+      <h3>Zaposleni</h3>
+      <mat-form-field appearance='outline'>
+        <mat-label>Pretraga</mat-label>
+        <input matInput [(ngModel)]='filter'>
+      </mat-form-field>
+    </div>
+    <div style="text-align: center;">
+      <mat-button-toggle-group (change)="sort($event.value)">
+        <mat-button-toggle [checked]='true' [value]="'best'">Najbolji</mat-button-toggle>
+        <mat-button-toggle [value]="'close'">Najbliži</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <app-doctors-list [doctors]='hospital.doctors'></app-doctors-list>
   </div>
-  <app-doctors-list [showMap]='false'></app-doctors-list>
-</div>
+</ng-container>

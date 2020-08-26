@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HospitalService } from 'src/app/core/services/hospital.service';
+import { Observable } from 'rxjs';
+import { Hospital } from 'src/app/models/hospital';
 
 @Component({
   selector: 'app-hospital',
@@ -8,21 +11,20 @@ import { Component, OnInit } from '@angular/core';
 export class HospitalComponent implements OnInit {
 
   filter
-  hospital = {
-    _id: '12346',
-    name: 'Sveti Jovan',
-    address: 'Zrenjanin',
-    phone: '465321645',
-    distance: 3.5,
-    rating: {
-      rating: 3.5,
-      count: 13
-    }
-  }
+  hospital: Observable<Hospital>
 
-  constructor() { }
+  constructor(private service: HospitalService) { }
 
   ngOnInit(): void {
+    this.hospital = this.service.getHospitalsListener() as Observable<Hospital>
+    this.service.getHospital()
   }
 
+  setDistance(distance: { i: number, value: number }) {
+    this.service.setDistance(distance)
+  }
+
+  sort(value: string) {
+
+  }
 }

@@ -1,33 +1,30 @@
-<ng-container *ngFor="let doc of doctors; index as i, last as isLast">
+<ng-container *ngFor="let doc of isObservable ? (doctors | async) : doctors; index as i, last as isLast">
   <div class="doctor" style="cursor: pointer; position: relative;" routerLink="../../lekari/{{doc._id}}">
     <div id="{{i}}" class="row" style="padding: 20px;">
       <div class="col-lg-2 center-content">
         <img src="https://www.kidsmathgamesonline.com/images/pictures/shapes/square.jpg" class="img-fluid">
       </div>
-      <div class="col-lg-{{showMap != false ? 4 : 5}}" style="text-align: justify; padding: 10px 0;">
+      <div class="col-lg-{{isObservable ? 4 : 10}}" style="text-align: justify; padding: 10px 0;">
         <div>
           <h4 style="display: inline;"><strong>{{doc.fullname}}</strong></h4>
-          <span class="fas fa-star" style="color: #ffd700;font-size: 20px;">{{doc.reviews.rating}}</span><span
-            style="font-size: 15px;"> ({{doc.reviews.reviews}})</span>
+          <ng-container *ngIf="doc.reviews.rating && doc.reviews.count">
+            <span class="fas fa-star" style="color: #ffd700;font-size: 20px;">{{doc.reviews.rating}}</span><span
+              style="font-size: 15px;"> ({{doc.reviews.count}})</span>
+          </ng-container>
         </div>
-        <h5 style="margin: 0;">{{doc.specialty}}</h5>
+        <h5 style="margin: 0;">{{doc.specialty[0].substr(1)}}</h5>
       </div>
-      <div class="col-lg-{{showMap != false ? 3 : 5}}" style="text-align: justify; padding: 10px 0;">
+      <div *ngIf="isObservable" class="col-lg-3" style="text-align: justify; padding: 10px 0;">
         <p style="margin: 0;">Zdravstvena ustanova:</p>
         <strong>{{doc.workPlace.name}}</strong>
         <p>{{doc.workPlace.address}}</p>
-        <p *ngIf="doc.distance; else calc"><strong>Udaljeno {{doc.distance}}km
-            od tebe.</strong></p>
-        <ng-template #calc>
-          <div>
-            <mat-spinner style="display: inline;"></mat-spinner>
-            <h6 style="margin-left: 30px;">Izračunavanje
-              udaljenosti...</h6>
-          </div>
-        </ng-template>
+        <p><strong>Udaljenost:
+            <span *ngIf="doc.workPlace.distance as distance">{{distance}}km</span>
+            <span *ngIf="!doc.workPlace.distance">Izračunavanje...</span>
+          </strong></p>
       </div>
-      <div *ngIf="showMap != false" class="col-lg-3">
-        <app-map [id]='"doc"+i'></app-map>
+      <div *ngIf="isObservable" class="col-lg-3">
+        <app-map [id]='"doc"+i' [location]='doc.workPlace.location' (distance)='setDistance($event)'></app-map>
       </div>
     </div>
     <mat-divider *ngIf="!isLast"></mat-divider>

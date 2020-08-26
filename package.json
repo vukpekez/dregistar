@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "server": "nodemon src/backend/server.js"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +26,16 @@
     "@fullcalendar/angular": "^5.3.0",
     "@fullcalendar/daygrid": "^5.3.0",
     "@fullcalendar/interaction": "^5.3.0",
+    "@types/leaflet": "^1.5.17",
+    "@types/mapbox-gl-leaflet": "0.0.1",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "leaflet": "^1.6.0",
     "mapbox-gl": "^1.12.0",
+    "mapbox-gl-leaflet": "0.0.12",
+    "mongoose": "^5.10.0",
+    "mongoose-unique-validator": "^2.0.3",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

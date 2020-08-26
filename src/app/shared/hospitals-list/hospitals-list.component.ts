@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Hospital } from 'src/app/models/hospital';
+import { HospitalService } from 'src/app/core/services/hospital.service';
 
 @Component({
   selector: 'app-hospitals-list',
@@ -7,16 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HospitalsListComponent implements OnInit {
 
-  hospitals = [{
-    _id: 'ss',
-    name: 'Bolnica',
-    address: 'Adresa',
-    distance: 3.5
-  }]
+  hospitals: Observable<Hospital[]>
 
-  constructor() { }
+  constructor(private service: HospitalService) { }
 
   ngOnInit(): void {
+    this.hospitals = this.service.getHospitalsListener() as Observable<Hospital[]>
+    this.service.getHospitals()
   }
 
+  setDistance(distance: { i: number, value: number }) {
+    this.service.setDistance(distance)
+  }
 }
